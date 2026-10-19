@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+/* CyberShield — Design Tokens (Cyber Theme shared source of truth) */
+:root {
+  /* ========================================================
+     CyberShield Core Palette — Shared Source of Truth
+     ======================================================== */
+  /* App background — Main page canvas */
+  --color-bg-page: #F6F8FC;
+  /* Card surface — Panels and content cards */
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #F1F5F9;
+  --color-bg-subtle: #F6F8FC;
+  
+  /* Text */
+  /* Primary text — Headings and important text */
+  --color-text-primary: #111827;
+  /* Secondary text — Descriptions and helper labels */
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-text-inverse: #FFFFFF;
+
+  /* Card border — Subtle card boundaries */
+  --color-border: #E2E8F0;
+  --color-border-subtle: #EDF2F7;
+  --color-border-strong: #CBD5E1;
+
+  /* Primary blue — Main buttons and active navigation */
+  --color-primary: #2563EB;
+  /* Deep blue — Hover and pressed states */
+  --color-primary-hover: #1D4ED8;
+  --color-primary-active: #1D4ED8;
+  --color-primary-surface: #EFF6FF;
+  --color-primary-subtle: #F6F8FC;
+
+  /* Lavender accent — Brand glow and selected illustrations */
+  --color-lavender: #7657F6;
+  --color-lavender-hover: #6343E0;
+  --color-lavender-surface: #F5F3FF;
+  --color-lavender-border: #DDD6FE;
+  --color-purple: #7657F6;
+  --color-purple-surface: #F5F3FF;
+  --color-purple-border: #DDD6FE;
+  --color-brand-glow: 0 0 24px rgba(118, 87, 246, 0.22);
+  --shadow-glow-lavender: 0 0 24px rgba(118, 87, 246, 0.25);
+
+  /* Success — Safe/completed status */
+  --color-success: #059669;
+  --color-success-hover: #047857;
+  --color-success-surface: #ECFDF5;
+  --color-success-border: #A7F3D0;
+
+  /* Warning — Caution and uncertain signals */
+  --color-warning: #D97706;
+  --color-warning-hover: #B45309;
+  --color-warning-surface: #FFFBEB;
+  --color-warning-border: #FDE68A;
+  --color-caution: #D97706;
+  --color-caution-hover: #B45309;
+  --color-caution-surface: #FFFBEB;
+  --color-caution-border: #FDE68A;
+
+  /* Danger — High-risk indicators */
+  --color-danger: #DC2626;
+  --color-danger-hover: #B91C1C;
+  --color-danger-surface: #FEF2F2;
+  --color-danger-border: #FECACA;
+
+  /* Feature Card Surfaces & Fills (Cyber Theme Specialized Feature Palettes) */
+  --card-fill-default: linear-gradient(180deg, #FFFFFF 0%, #F8FAFD 100%);
+  --card-border-default: #E2E8F0;
+
+  --card-fill-blue: linear-gradient(145deg, #F0F7FF 0%, #E3EFFF 100%);
+  --card-border-blue: #BFDBFE;
+  --card-accent-blue: #2563EB;
+  --card-glow-blue: 0 4px 16px -2px rgba(37, 99, 235, 0.14);
+
+  --card-fill-purple: linear-gradient(145deg, #F6F4FF 0%, #EDE8FE 100%);
+  --card-border-purple: #DDD6FE;
+  --card-accent-purple: #7657F6;
+  --card-glow-purple: 0 4px 16px -2px rgba(118, 87, 246, 0.14);
+
+  --card-fill-amber: linear-gradient(145deg, #FFFDF0 0%, #FEF5D6 100%);
+  --card-border-amber: #FDE68A;
+  --card-accent-amber: #D97706;
+  --card-glow-amber: 0 4px 16px -2px rgba(217, 119, 6, 0.14);
+
+  --card-fill-green: linear-gradient(145deg, #F0FDF4 0%, #DCFCE7 100%);
+  --card-border-green: #A7F3D0;
+  --card-accent-green: #059669;
+  --card-glow-green: 0 4px 16px -2px rgba(5, 150, 105, 0.14);
+
+  --card-fill-danger: linear-gradient(145deg, #FFF5F5 0%, #FEE2E2 100%);
+  --card-border-danger: #FECACA;
+  --card-accent-danger: #DC2626;
+  --card-glow-danger: 0 4px 16px -2px rgba(220, 38, 38, 0.14);
+
+  --card-fill-teal: linear-gradient(145deg, #F0FDF9 0%, #CCFBF1 100%);
+  --card-border-teal: #99F6E4;
+  --card-accent-teal: #0D9488;
+  --card-glow-teal: 0 4px 16px -2px rgba(13, 148, 136, 0.14);
+
+  --card-fill-indigo: linear-gradient(145deg, #EEF2FF 0%, #E0E7FF 100%);
+  --card-border-indigo: #C7D2FE;
+  --card-accent-indigo: #4F46E5;
+  --card-glow-indigo: 0 4px 16px -2px rgba(79, 70, 229, 0.14);
+
+  --card-fill-slate: linear-gradient(145deg, #F8FAFC 0%, #F1F5F9 100%);
+  --card-border-slate: #CBD5E1;
+  --card-accent-slate: #475569;
+  --card-glow-slate: 0 4px 16px -2px rgba(71, 85, 105, 0.12);
+
+  /* Gradients */
+  --color-gradient-brand: linear-gradient(135deg, #2563EB 0%, #7657F6 100%);
+  --color-gradient-subtle: linear-gradient(135deg, #EFF6FF 0%, #F5F3FF 100%);
+  --color-gradient-hero: linear-gradient(145deg, #FFFFFF 0%, #F6F8FC 55%, #EFF6FF 100%);
+
+  /* Typography */
+  --font-family-base: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.84375rem;  /* 13.5px */
+  --font-size-base: 0.9375rem; /* 15px */
+  --font-size-md: 1.0625rem;   /* 17px */
+  --font-size-lg: 1.25rem;     /* 20px */
+  --font-size-xl: 1.5rem;      /* 24px */
+  --font-size-2xl: 1.875rem;   /* 30px */
+  --font-size-3xl: 2.25rem;    /* 36px */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-base: 1.55;
+  --line-height-relaxed: 1.68;
+
+  /* Spacing */
+  --space-2xs: 0.25rem; /* 4px */
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 0.75rem;  /* 12px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.25rem;  /* 20px */
+  --space-xl: 1.5rem;   /* 24px */
+  --space-2xl: 2rem;    /* 32px */
+  --space-3xl: 2.5rem;  /* 40px */
+
+  /* Border Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* Ambient Soft Shadows & Specular Hardware Highlights (Linear / Apple SaaS Style) */
+  --specular-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.09), 0 2px 6px -1px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-lg: 0 16px 40px -6px rgba(15, 23, 42, 0.13), 0 4px 12px -2px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-dropdown: 0 14px 36px -4px rgba(15, 23, 42, 0.15), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+
+  /* Premium Motion Curves */
+  --transition-fast: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 340ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-glide: 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-bounce: 520ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Layout Dimensions */
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 76px;
+  --header-height: 64px;
+  --content-max-width: 1240px;
+
+  /* Z-indices */
+  --z-base: 1;
+  --z-elevated: 10;
+  --z-header: 100;
+  --z-sidebar: 110;
+  --z-modal-backdrop: 200;
+  --z-modal: 210;
+  --z-toast: 300;
+}
+
+/* Authentic Cyber Defense Dark Mode (Neon Cyber & Matrix Tiers) */
+[data-theme="dark"] {
+  --color-bg-page: #030712;
+  --color-bg-card: rgba(6, 12, 26, 0.78);
+  --color-bg-elevated: rgba(10, 20, 42, 0.85);
+  --color-bg-subtle: rgba(6, 14, 30, 0.65);
+  
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+  --color-text-inverse: #030712;
+
+  --color-border: rgba(0, 240, 255, 0.22);
+  --color-border-subtle: rgba(0, 240, 255, 0.12);
+  --color-border-strong: #00F0FF;
+
+  --color-primary: #00F0FF;
+  --color-primary-hover: #38BDF8;
+  --color-primary-active: #0284C7;
+  --color-primary-surface: rgba(0, 240, 255, 0.12);
+  --color-primary-subtle: rgba(0, 240, 255, 0.06);
+
+  --color-lavender: #8B5CF6;
+  --color-lavender-hover: #A78BFA;
+  --color-lavender-surface: rgba(139, 92, 246, 0.14);
+  --color-lavender-border: #5B21B6;
+  --color-purple: #8B5CF6;
+  --color-purple-surface: rgba(139, 92, 246, 0.14);
+  --color-purple-border: #5B21B6;
+  --color-brand-glow: 0 0 24px rgba(139, 92, 246, 0.35);
+  --shadow-glow-lavender: 0 0 24px rgba(139, 92, 246, 0.35);
+
+  --color-success: #10B981;
+  --color-success-hover: #34D399;
+  --color-success-surface: rgba(16, 185, 129, 0.14);
+  --color-success-border: #065F46;
+
+  --color-warning: #F59E0B;
+  --color-warning-hover: #FBBF24;
+  --color-warning-surface: rgba(245, 158, 11, 0.14);
+  --color-warning-border: #92400E;
+  --color-caution: #F59E0B;
+  --color-caution-hover: #FBBF24;
+  --color-caution-surface: rgba(245, 158, 11, 0.14);
+  --color-caution-border: #92400E;
+
+  --color-danger: #EF4444;
+  --color-danger-hover: #F87171;
+  --color-danger-surface: rgba(239, 68, 68, 0.14);
+  --color-danger-border: #991B1B;
+
+  /* Feature Card Surfaces & Fills (Accessible Dark Theme) */
+  --card-fill-default: linear-gradient(180deg, #111827 0%, #172133 100%);
+  --card-border-default: #1E293B;
+
+  --card-fill-blue: linear-gradient(145deg, rgba(37, 99, 235, 0.16) 0%, rgba(30, 58, 138, 0.24) 100%);
+  --card-border-blue: rgba(59, 130, 246, 0.38);
+  --card-accent-blue: #3B82F6;
+  --card-glow-blue: 0 4px 20px -2px rgba(59, 130, 246, 0.25);
+
+  --card-fill-purple: linear-gradient(145deg, rgba(118, 87, 246, 0.16) 0%, rgba(91, 33, 182, 0.24) 100%);
+  --card-border-purple: rgba(139, 92, 246, 0.38);
+  --card-accent-purple: #8B5CF6;
+  --card-glow-purple: 0 4px 20px -2px rgba(139, 92, 246, 0.25);
+
+  --card-fill-amber: linear-gradient(145deg, rgba(217, 119, 6, 0.16) 0%, rgba(146, 64, 14, 0.24) 100%);
+  --card-border-amber: rgba(245, 158, 11, 0.38);
+  --card-accent-amber: #F59E0B;
+  --card-glow-amber: 0 4px 20px -2px rgba(245, 158, 11, 0.25);
+
+  --card-fill-green: linear-gradient(145deg, rgba(5, 150, 105, 0.16) 0%, rgba(6, 95, 70, 0.24) 100%);
+  --card-border-green: rgba(16, 185, 129, 0.38);
+  --card-accent-green: #10B981;
+  --card-glow-green: 0 4px 20px -2px rgba(16, 185, 129, 0.25);
+
+  --card-fill-danger: linear-gradient(145deg, rgba(220, 38, 38, 0.16) 0%, rgba(153, 27, 27, 0.24) 100%);
+  --card-border-danger: rgba(239, 68, 68, 0.38);
+  --card-accent-danger: #EF4444;
+  --card-glow-danger: 0 4px 20px -2px rgba(239, 68, 68, 0.25);
+
+  --card-fill-teal: linear-gradient(145deg, rgba(13, 148, 136, 0.16) 0%, rgba(17, 94, 89, 0.24) 100%);
+  --card-border-teal: rgba(20, 184, 166, 0.38);
+  --card-accent-teal: #14B8A6;
+  --card-glow-teal: 0 4px 20px -2px rgba(20, 184, 166, 0.25);
+
+  --card-fill-indigo: linear-gradient(145deg, rgba(79, 70, 229, 0.16) 0%, rgba(49, 46, 129, 0.24) 100%);
+  --card-border-indigo: rgba(99, 102, 241, 0.38);
+  --card-accent-indigo: #6366F1;
+  --card-glow-indigo: 0 4px 20px -2px rgba(99, 102, 241, 0.25);
+
+  --card-fill-slate: linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+  --card-border-slate: rgba(71, 85, 105, 0.5);
+  --card-accent-slate: #94A3B8;
+  --card-glow-slate: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+
+  --color-gradient-brand: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+  --color-gradient-subtle: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
+  --color-gradient-hero: linear-gradient(145deg, #111827 0%, #172133 60%, #151F30 100%);
+
+  --specular-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --shadow-dropdown: 0 14px 36px rgba(0, 0, 0, 0.7);
+}

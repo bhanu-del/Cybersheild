@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield — In-Browser Acceptance Test Runner</title>
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    body {
+      background-color: var(--color-bg-page);
+      padding: var(--space-xl);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .test-header {
+      background: var(--color-gradient-hero);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .test-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--color-bg-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .test-table th {
+      background: var(--color-bg-subtle);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: var(--font-size-xs);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .test-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      font-size: var(--font-size-sm);
+    }
+    .test-table tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-header">
+    <div>
+      <h1 style="font-size: var(--font-size-xl); margin-bottom: 4px;">CyberShield Acceptance Test Runner</h1>
+      <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary); margin: 0;">
+        Automated verification of heuristic engines, URL parser, weighted scoring math, datasets, and XSS safety.
+      </p>
+    </div>
+    <div style="text-align: right;">
+      <button class="btn btn-primary" id="btn-run-tests">Run All Tests</button>
+      <div id="test-summary-pill" style="margin-top: var(--space-xs); font-size: var(--font-size-xs); font-weight: var(--font-weight-bold);"></div>
+    </div>
+  </div>
+
+  <table class="test-table">
+    <thead>
+      <tr>
+        <th style="width: 50px;">#</th>
+        <th>Assertion Description</th>
+        <th style="width: 120px;">Status</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody id="test-results-body">
+      <tr>
+        <td colspan="4" style="text-align: center; color: var(--color-text-muted); padding: 32px;">
+          Click "Run All Tests" or wait for auto-execution...
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Application Scripts -->
+  <script src="../js/utils/icons.js"></script>
+  <script src="../js/utils/safe-rendering.js"></script>
+  <script src="../js/utils/formatting.js"></script>
+  <script src="../js/utils/audio.js"></script>
+  <script src="../js/utils/certificate.js"></script>
+  <script src="../js/validation.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/state.js"></script>
+  <script src="../data/rule-catalog.js"></script>
+  <script src="../data/scenarios.js"></script>
+  <script src="../data/lessons.js"></script>
+  <script src="../js/engine/url-parser.js"></script>
+  <script src="../js/engine/url-rules.js"></script>
+  <script src="../js/engine/message-rules.js"></script>
+  <script src="../js/engine/result-schema.js"></script>
+  <script src="../js/engine/evidence-aggregator.js"></script>
+  <script src="test-suite.js"></script>
+
+  <script>
+    function executeRunner() {
+      const report = window.CyberShield.TestSuite.runAll();
+      const tbody = document.getElementById('test-results-body');
+      const summary = document.getElementById('test-summary-pill');
+
+      tbody.innerHTML = report.results.map((r, i) => `
+        <tr>
+          <td style="color: var(--color-text-muted);">${i + 1}</td>
+          <td style="font-weight: var(--font-weight-medium);">${r.name}</td>
+          <td>
+            <span class="badge ${r.passed ? 'badge-success' : 'badge-warning'}">
+              ${r.passed ? '✓ PASSED' : '✗ FAILED'}
+            </span>
+          </td>
+          <td style="color: var(--color-text-secondary); font-family: var(--font-family-mono); font-size: var(--font-size-xs);">
+            ${r.detail || '—'}
+          </td>
+        </tr>
+      `).join('');
+
+      summary.textContent = `${report.passed} / ${report.total} Passed (${report.durationMs}ms)`;
+      summary.style.color = report.failed === 0 ? 'var(--color-success)' : 'var(--color-warning)';
+    }
+
+    document.getElementById('btn-run-tests').addEventListener('click', executeRunner);
+    window.addEventListener('DOMContentLoaded', executeRunner);
+  </script>
+</body>
+</html>
