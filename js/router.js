@@ -107,6 +107,19 @@
         }
       });
 
+      // Update mobile bottom nav active states
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-item[data-route]');
+      mobileNavLinks.forEach(item => {
+        const dest = item.dataset.route;
+        if (dest === routeKey) {
+          item.classList.add('active');
+          item.setAttribute('aria-current', 'page');
+        } else {
+          item.classList.remove('active');
+          item.removeAttribute('aria-current');
+        }
+      });
+
       // Update topbar titles
       const pageTitleEl = document.querySelector('#current-page-title');
       const pageSubtitleEl = document.querySelector('#current-page-subtitle');

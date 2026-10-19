@@ -99,19 +99,25 @@
 
       // Sidebar navigation links
       const navLinks = document.querySelectorAll('.nav-link');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+
       navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           const route = link.dataset.route;
           router.navigate(route);
+          if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+          }
+          if (overlay && overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+          }
         });
       });
 
-      // Mobile drawer toggle
+      // Mobile drawer toggle (from topbar)
       const mobileBtn = document.querySelector('#btn-mobile-menu');
-      const sidebar = document.querySelector('.sidebar');
-      const overlay = document.querySelector('.sidebar-overlay');
-
       if (mobileBtn && sidebar && overlay) {
         mobileBtn.addEventListener('click', () => {
           sidebar.classList.toggle('open');
@@ -121,6 +127,31 @@
         overlay.addEventListener('click', () => {
           sidebar.classList.remove('open');
           overlay.classList.remove('active');
+        });
+      }
+
+      // Mobile Bottom Nav dock events
+      const bottomNavLinks = document.querySelectorAll('.mobile-nav-item[data-route]');
+      bottomNavLinks.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const route = item.dataset.route;
+          router.navigate(route);
+          if (sidebar && sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+          }
+          if (overlay && overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+          }
+        });
+      });
+
+      // Bottom Nav "Menu" button to open sidebar drawer
+      const bottomMenuBtn = document.querySelector('#btn-bottom-nav-menu');
+      if (bottomMenuBtn && sidebar && overlay) {
+        bottomMenuBtn.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('active');
         });
       }
 

@@ -2,7 +2,7 @@
   "name": "cybershield",
   "version": "1.0.0",
   "description": "> **Digital safety, made understandable.**   > A premium, beginner-friendly, offline-first web application designed to teach people how to identify deceptive messages, phishing links, fake job offers, and manipulative digital requests through interactive training and transparent local heuristics.",
-  "main": "sw.js",
+  "main": "server.js",
   "directories": {
     "test": "tests"
   },

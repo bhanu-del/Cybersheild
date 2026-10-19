@@ -27,7 +27,10 @@
     isActive: false
   };
 
-  const NODE_COUNT = 55;
+  function getNodeCount() {
+    return (window.innerWidth <= 768) ? 22 : 55;
+  }
+
   const nodes = [];
   const colors = ['#00F0FF', '#00FF88', '#38BDF8', '#818CF8', '#00E5FF'];
 
@@ -36,13 +39,14 @@
 
   function initNodes() {
     nodes.length = 0;
-    for (let i = 0; i < NODE_COUNT; i++) {
+    const count = getNodeCount();
+    for (let i = 0; i < count; i++) {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        radius: Math.random() * 2.2 + 1.2,
+        vx: (Math.random() - 0.5) * 0.75,
+        vy: (Math.random() - 0.5) * 0.75,
+        radius: Math.random() * 2.0 + 1.2,
         color: colors[Math.floor(Math.random() * colors.length)],
         pulse: Math.random() * Math.PI,
         pulseSpeed: 0.03 + Math.random() * 0.03
@@ -56,20 +60,22 @@
     height = canvas.height = window.innerHeight;
   }
 
+  function updateCardSpotlight(clientX, clientY) {
+    const cards = document.querySelectorAll('.card, .quick-tool-card, .metric-card, .ai-verdict-card, .lesson-card, .hero-banner');
+    cards.forEach(card => {
+      const rect = card.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  }
+
   function handleMouseMove(e) {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
     mouse.isActive = true;
-
-    // Update dynamic card spotlight positions across visible cards
-    const cards = document.querySelectorAll('.card, .quick-tool-card, .metric-card, .ai-verdict-card, .lesson-card, .hero-banner');
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
+    updateCardSpotlight(e.clientX, e.clientY);
   }
 
   function handleMouseLeave() {
@@ -78,35 +84,58 @@
     mouse.isActive = false;
   }
 
+  function handleTouchStart(e) {
+    if (!e.touches || !e.touches[0]) return;
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
+    mouse.isActive = true;
+    updateCardSpotlight(mouse.x, mouse.y);
+  }
+
+  function handleTouchMove(e) {
+    if (!e.touches || !e.touches[0]) return;
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
+    mouse.isActive = true;
+    updateCardSpotlight(mouse.x, mouse.y);
+  }
+
+  function handleTouchEnd() {
+    mouse.isActive = false;
+    mouse.x = -9999;
+    mouse.y = -9999;
+  }
+
   function renderFrame() {
     if (!isRunning || !ctx) return;
 
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Draw Rotating Holographic Radar in top-right background corner
-    const radarCenterX = width - 180;
-    const radarCenterY = 180;
-    const radarRadius = 140;
+    // 1. Draw Rotating Holographic Radar in background
+    const isMobile = width <= 768;
+    const radarCenterX = isMobile ? width / 2 : width - 180;
+    const radarCenterY = isMobile ? 120 : 180;
+    const radarRadius = isMobile ? 75 : 140;
 
-    if (width > 768) {
-      ctx.save();
-      ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
-      ctx.lineWidth = 1;
+    ctx.save();
+    ctx.strokeStyle = isMobile ? 'rgba(0, 240, 255, 0.05)' : 'rgba(0, 240, 255, 0.08)';
+    ctx.lineWidth = 1;
 
-      // Radar concentric rings
-      for (let r = 35; r <= radarRadius; r += 35) {
-        ctx.beginPath();
-        ctx.arc(radarCenterX, radarCenterY, r, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // Radar crosshair lines
+    // Radar concentric rings
+    const ringStep = isMobile ? 25 : 35;
+    for (let r = ringStep; r <= radarRadius; r += ringStep) {
       ctx.beginPath();
-      ctx.moveTo(radarCenterX - radarRadius, radarCenterY);
-      ctx.lineTo(radarCenterX + radarRadius, radarCenterY);
-      ctx.moveTo(radarCenterX, radarCenterY - radarRadius);
-      ctx.lineTo(radarCenterX, radarCenterY + radarRadius);
+      ctx.arc(radarCenterX, radarCenterY, r, 0, Math.PI * 2);
       ctx.stroke();
+    }
+
+    // Radar crosshair lines
+    ctx.beginPath();
+    ctx.moveTo(radarCenterX - radarRadius, radarCenterY);
+    ctx.lineTo(radarCenterX + radarRadius, radarCenterY);
+    ctx.moveTo(radarCenterX, radarCenterY - radarRadius);
+    ctx.lineTo(radarCenterX, radarCenterY + radarRadius);
+    ctx.stroke();
 
       // Rotating Scanner Beam
       radarAngle += 0.018;
@@ -232,6 +261,9 @@
     window.addEventListener('resize', resize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     animId = requestAnimationFrame(renderFrame);
   }
@@ -250,6 +282,9 @@
     window.removeEventListener('resize', resize);
     window.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseleave', handleMouseLeave);
+    window.removeEventListener('touchstart', handleTouchStart);
+    window.removeEventListener('touchmove', handleTouchMove);
+    window.removeEventListener('touchend', handleTouchEnd);
   }
 
   function setupCanvas() {
