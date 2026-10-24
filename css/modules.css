@@ -5656,5 +5656,247 @@ svg.radar-chart-svg {
   }
 }
 
+/* ==========================================================================
+   AUTHENTIC CYBERX GLASSY CARDS THEME (LINK INSPECTOR / ANALYZER MODE ONLY)
+   Active in Dark Mode when user is navigating Link Inspector
+   Features:
+   - Ultra-modern translucent purple-navy obsidian frosted glass
+   - High-contrast crisp readability with 18px blur & 210% saturation
+   - Glowing neon violet / cyan border lines with specular top rim
+   - Floating glassy cards that reveal the live Attack Paths Activity Map behind
+   ========================================================================== */
+
+[data-theme="dark"] [data-route="link-inspector"] .intel-hero-card,
+[data-theme="dark"] .intel-hero-card {
+  background: 
+    radial-gradient(600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(168, 85, 247, 0.18), transparent 70%),
+    rgba(14, 9, 32, 0.58) !important;
+  backdrop-filter: blur(20px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(210%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.8), 
+              0 0 35px rgba(139, 92, 246, 0.16), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+  border-radius: 20px !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .intel-input-box,
+[data-theme="dark"] .intel-input-box {
+  background: rgba(10, 5, 26, 0.72) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.45) !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.7), 
+              0 0 25px rgba(147, 51, 234, 0.2) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .intel-input-box:focus-within,
+[data-theme="dark"] .intel-input-box:focus-within {
+  border-color: #C084FC !important;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8), 
+              0 0 35px rgba(192, 132, 252, 0.45), 
+              0 0 2px 1px #C084FC !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .intel-url-input,
+[data-theme="dark"] .intel-url-input {
+  color: #FFFFFF !important;
+  background: transparent !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .intel-url-input::placeholder,
+[data-theme="dark"] .intel-url-input::placeholder {
+  color: rgba(216, 180, 254, 0.5) !important;
+}
+
+/* Glassy Dossier & Result Cards */
+[data-theme="dark"] [data-route="link-inspector"] .investigation-dossier-card,
+[data-theme="dark"] .investigation-dossier-card,
+[data-theme="dark"] [data-route="link-inspector"] .intel-bottom-card,
+[data-theme="dark"] .intel-bottom-card {
+  background: rgba(14, 9, 32, 0.60) !important;
+  backdrop-filter: blur(20px) saturate(210%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(210%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.32) !important;
+  box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.85), 
+              0 0 30px rgba(139, 92, 246, 0.12), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  border-radius: 20px !important;
+}
+
+/* Glassy URL Anatomy Explorer Card & Tokens */
+[data-theme="dark"] [data-route="link-inspector"] .anatomy-token-strip,
+[data-theme="dark"] .anatomy-token-strip {
+  background: rgba(10, 5, 24, 0.65) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .anatomy-token,
+[data-theme="dark"] .anatomy-token {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .anatomy-token:hover,
+[data-theme="dark"] .anatomy-token:hover {
+  background: rgba(168, 85, 247, 0.3) !important;
+  border-color: #C084FC !important;
+  box-shadow: 0 0 18px rgba(192, 132, 252, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .anatomy-token.active,
+[data-theme="dark"] .anatomy-token.active {
+  background: linear-gradient(135deg, rgba(147, 51, 234, 0.45) 0%, rgba(59, 130, 246, 0.45) 100%) !important;
+  border-color: #A855F7 !important;
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .anatomy-detail-box,
+[data-theme="dark"] .anatomy-detail-box {
+  background: rgba(15, 10, 36, 0.7) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.3) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+/* Glassy Digital Forensics Lab Stage Rows */
+[data-theme="dark"] [data-route="link-inspector"] .forensic-stage-row,
+[data-theme="dark"] .forensic-stage-row {
+  background: rgba(12, 7, 28, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.25) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  border-radius: var(--radius-md) !important;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .forensic-stage-row:hover,
+[data-theme="dark"] .forensic-stage-row:hover {
+  background: rgba(22, 12, 48, 0.75) !important;
+  border-color: rgba(192, 132, 252, 0.5) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.75), 0 0 20px rgba(168, 85, 247, 0.22) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Glassy Threat Evidence Expandable Cards */
+[data-theme="dark"] [data-route="link-inspector"] .threat-evidence-card,
+[data-theme="dark"] .threat-evidence-card {
+  background: rgba(14, 9, 34, 0.65) !important;
+  backdrop-filter: blur(16px) saturate(200%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.3) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+  border-radius: var(--radius-lg) !important;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .threat-evidence-card:hover,
+[data-theme="dark"] .threat-evidence-card:hover {
+  border-color: rgba(192, 132, 252, 0.6) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 28px rgba(168, 85, 247, 0.25) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .threat-card-drawer,
+[data-theme="dark"] .threat-card-drawer {
+  background: rgba(9, 4, 22, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border-top: 1px solid rgba(168, 85, 247, 0.22) !important;
+}
+
+/* Glassy Explainable Risk Assessment Matrix Table */
+[data-theme="dark"] [data-route="link-inspector"] .explainable-matrix-table,
+[data-theme="dark"] .explainable-matrix-table {
+  background: rgba(10, 5, 25, 0.65) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.28) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .explainable-matrix-table th,
+[data-theme="dark"] .explainable-matrix-table th {
+  background: rgba(22, 12, 48, 0.85) !important;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.35) !important;
+  color: #E9D5FF !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .explainable-matrix-table td,
+[data-theme="dark"] .explainable-matrix-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Glassy Quick Replay Sample Chips */
+[data-theme="dark"] [data-route="link-inspector"] .replay-chip,
+[data-theme="dark"] .replay-chip {
+  background: rgba(139, 92, 246, 0.16) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.38) !important;
+  color: #E9D5FF !important;
+  transition: all 0.22s ease !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .replay-chip:hover,
+[data-theme="dark"] .replay-chip:hover {
+  background: rgba(168, 85, 247, 0.32) !important;
+  border-color: #C084FC !important;
+  box-shadow: 0 0 16px rgba(192, 132, 252, 0.45) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Glassy Action Buttons in Link Inspector */
+[data-theme="dark"] [data-route="link-inspector"] #btn-analyze-url,
+[data-theme="dark"] #btn-analyze-url {
+  background: linear-gradient(135deg, #7C3AED 0%, #2563EB 55%, #06B6D4 100%) !important;
+  border: 1px solid rgba(216, 180, 254, 0.6) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 28px rgba(124, 58, 237, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.26s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] #btn-analyze-url:hover,
+[data-theme="dark"] #btn-analyze-url:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 0 45px rgba(147, 51, 234, 0.9), 0 0 20px #06B6D4, inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Glassy Export Buttons */
+[data-theme="dark"] [data-route="link-inspector"] .export-btn,
+[data-theme="dark"] .export-btn {
+  background: rgba(139, 92, 246, 0.16) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(168, 85, 247, 0.35) !important;
+  color: #DDD6FE !important;
+  transition: all 0.22s ease !important;
+}
+
+[data-theme="dark"] [data-route="link-inspector"] .export-btn:hover,
+[data-theme="dark"] .export-btn:hover {
+  background: rgba(168, 85, 247, 0.3) !important;
+  border-color: #C084FC !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 20px rgba(192, 132, 252, 0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Glassy Investigation Pipeline HUD */
+[data-theme="dark"] [data-route="link-inspector"] .live-investigation-hud,
+[data-theme="dark"] .live-investigation-hud {
+  background: rgba(14, 9, 34, 0.75) !important;
+  backdrop-filter: blur(18px) saturate(200%) !important;
+  border: 1px solid rgba(168, 85, 247, 0.4) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 35px rgba(147, 51, 234, 0.25) !important;
+  border-radius: 18px !important;
+}
+
+
 
 

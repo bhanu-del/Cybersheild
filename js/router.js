@@ -90,6 +90,15 @@
       this.currentRoute = routeKey;
       global.CyberShield.State.getTransient().currentRoute = routeKey;
 
+      // Broadcast active route to document attributes and CyberHUD engine
+      document.documentElement.setAttribute('data-route', routeKey);
+      if (document.body) {
+        document.body.setAttribute('data-route', routeKey);
+      }
+      if (global.CyberShield.CyberHUD && typeof global.CyberShield.CyberHUD.setRoute === 'function') {
+        global.CyberShield.CyberHUD.setRoute(routeKey);
+      }
+
       if (updateHash && window.location.hash !== `#/${routeKey}`) {
         window.location.hash = `#/${routeKey}`;
       }
