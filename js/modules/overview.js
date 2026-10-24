@@ -1,5 +1,5 @@
 /**
- * CyberShield — Overview Dashboard Module
+ * CyberShield — Overview Dashboard Module (Simplified & Streamlined)
  * Command center displaying real user progress, quick action tools,
  * category mastery, recent activities, and dynamic next-lesson recommendations.
  */
@@ -19,10 +19,10 @@
 
       const accuracyDisplay = derived.overallAccuracyPct !== null ? `${derived.overallAccuracyPct}%` : '—';
       const accuracySubtext = derived.totalAnswered > 0 
-        ? `${derived.totalCorrect} of ${derived.totalAnswered} answered correctly`
-        : 'Complete a round to see accuracy';
+        ? `${derived.totalCorrect} of ${derived.totalAnswered} correct`
+        : 'Take a quiz to see score';
 
-      const recentSessions = (state.getData().sessions || []).slice(0, 4);
+      const recentSessions = (state.getData().sessions || []).slice(0, 3);
 
       const categoryNames = {
         'url_phishing': 'URL & Link Phishing',
@@ -43,74 +43,72 @@
       const lessonReadTime = suggestedLesson.readTime || '3 min read';
 
       container.innerHTML = `
-        <!-- Hero Welcome Banner -->
-        <div class="hero-banner">
-          <div class="hero-content">
+        <!-- Simplified Header Banner with Quick URL Scan -->
+        <div class="hero-banner simplified-hero">
+          <div class="hero-content" style="max-width: 100%;">
             <div class="hero-badge">
               ${getIcon('shield-check', 'hero-badge-icon')}
-              <span>${isHinglish ? 'Digital Safety Portal' : 'Offline-First Security Lab'}</span>
+              <span>${isHinglish ? 'Digital Defense Portal • Offline Safe' : 'Security Command Center • Offline-First'}</span>
             </div>
-            <h1 class="hero-title">
-              ${isHinglish ? 'Aapka Security Learning Space' : 'Your Security Learning Space.'}
+            <h1 class="hero-title" style="margin-bottom: 6px; font-size: 1.65rem;">
+              ${isHinglish ? 'CyberShield Security Space' : 'CyberShield Security Hub'}
             </h1>
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" style="margin-bottom: var(--space-md); font-size: var(--font-size-sm); color: var(--color-text-secondary);">
               ${isHinglish 
-                ? 'Phishing links, fake messages aur online scams ko pehchanein. Transparent local rules ke saath bina kisi privacy risk ke seekhein.'
-                : 'Learn to recognize deceptive messages, manipulative links, and impersonation scams through interactive simulations and transparent local rule inspections.'}
+                ? 'Suspicious links inspect karein, fake messages pehchanein aur fraud awareness test karein.'
+                : 'Inspect suspicious links, detect fraudulent messages, and practice fraud awareness with transparent rules.'}
             </p>
-            <div class="hero-actions">
-              <button class="btn btn-primary btn-lg" id="btn-hero-arena">
+
+            <!-- Quick Link Search Bar -->
+            <div class="overview-quick-scan-bar">
+              <div class="quick-scan-input-wrapper">
+                <span class="quick-scan-icon">${getIcon('search')}</span>
+                <input 
+                  type="url" 
+                  id="overview-quick-url-input" 
+                  class="quick-scan-input" 
+                  placeholder="${isHinglish ? 'Yahan suspicious URL paste karein (e.g. paypal.com.verify-login.xyz)...' : 'Paste any suspicious link to inspect instantly (e.g. http://secure-bank.login-verify.invalid)...'}"
+                  aria-label="Quick link inspection input"
+                />
+                <button class="btn btn-primary btn-sm" id="btn-overview-quick-inspect">
+                  ${getIcon('link')}
+                  <span>${isHinglish ? 'Inspect' : 'Inspect Link'}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Header Quick Actions -->
+            <div class="hero-actions" style="margin-top: var(--space-md); gap: var(--space-sm);">
+              <button class="btn btn-primary btn-sm" id="btn-hero-arena">
                 ${getIcon('gamepad')}
-                <span>${isHinglish ? 'Training Round Shuru Karein' : 'Start Training Round'}</span>
+                <span>${isHinglish ? 'Start Arena Quiz' : 'Start Arena Quiz'}</span>
               </button>
-              <button class="btn btn-secondary btn-lg" id="btn-hero-link">
+              <button class="btn btn-secondary btn-sm" id="btn-hero-link">
                 ${getIcon('link')}
-                <span>${isHinglish ? 'Link Inspect Karein' : 'Inspect a Link'}</span>
+                <span>${isHinglish ? 'Link Inspector' : 'Link Inspector'}</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-hero-chat">
+                ${getIcon('message-square')}
+                <span>${isHinglish ? 'AI Security Helper' : 'AI Helper'}</span>
               </button>
             </div>
-          </div>
-          <div class="hero-illustration">
-            <svg class="shield-graphic-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="shieldGrad" x1="20" y1="20" x2="180" y2="180" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#2563EB"/>
-                  <stop offset="1" stop-color="#1D4ED8"/>
-                </linearGradient>
-                <linearGradient id="glowGrad" x1="100" y1="30" x2="100" y2="170" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#60A5FA" stop-opacity="0.8"/>
-                  <stop offset="1" stop-color="#2563EB" stop-opacity="0.2"/>
-                </linearGradient>
-              </defs>
-              <path d="M100 24L168 54V102C168 144 139 174 100 186C61 174 32 144 32 102V54L100 24Z" fill="url(#shieldGrad)"/>
-              <path d="M100 36L156 61V102C156 137 132 162 100 172C68 162 44 137 44 102V61L100 36Z" fill="url(#glowGrad)"/>
-              <path d="M84 102L96 114L124 84" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
           </div>
         </div>
 
-        <!-- Metric KPI Cards -->
-        <div class="metric-grid">
+        <!-- Compact 4-Metric KPI Grid -->
+        <div class="metric-grid simplified-metric-grid">
           <div class="metric-card">
             <div class="metric-card-top">
-              <span class="metric-label">${isHinglish ? 'Completed Rounds' : 'Training Rounds'}</span>
+              <span class="metric-label">${isHinglish ? 'Rounds' : 'Training Rounds'}</span>
               <div class="metric-icon-box blue">${getIcon('gamepad')}</div>
             </div>
             <div class="metric-value">${derived.totalRounds}</div>
-            <div class="metric-subtext">${derived.totalRounds > 0 ? 'Recorded sessions' : 'No sessions completed yet'}</div>
+            <div class="metric-subtext">${derived.totalRounds > 0 ? 'Recorded rounds' : 'No rounds yet'}</div>
           </div>
 
           <div class="metric-card">
             <div class="metric-card-top">
-              <span class="metric-label">${isHinglish ? 'Questions Answered' : 'Questions Answered'}</span>
-              <div class="metric-icon-box purple">${getIcon('check')}</div>
-            </div>
-            <div class="metric-value">${derived.totalAnswered}</div>
-            <div class="metric-subtext">${derived.totalCorrect} answered correctly</div>
-          </div>
-
-          <div class="metric-card">
-            <div class="metric-card-top">
-              <span class="metric-label">${isHinglish ? 'Overall Accuracy' : 'Overall Accuracy'}</span>
+              <span class="metric-label">${isHinglish ? 'Accuracy' : 'Overall Accuracy'}</span>
               <div class="metric-icon-box green">${getIcon('trending-up')}</div>
             </div>
             <div class="metric-value">${accuracyDisplay}</div>
@@ -119,67 +117,94 @@
 
           <div class="metric-card">
             <div class="metric-card-top">
-              <span class="metric-label">${isHinglish ? 'Lessons Read' : 'Lessons Completed'}</span>
+              <span class="metric-label">${isHinglish ? 'Questions' : 'Questions Answered'}</span>
+              <div class="metric-icon-box purple">${getIcon('check')}</div>
+            </div>
+            <div class="metric-value">${derived.totalAnswered}</div>
+            <div class="metric-subtext">${derived.totalCorrect} correct answers</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-card-top">
+              <span class="metric-label">${isHinglish ? 'Lessons' : 'Lessons Completed'}</span>
               <div class="metric-icon-box amber">${getIcon('book-open')}</div>
             </div>
             <div class="metric-value">${derived.completedLessonsCount} / 7</div>
-            <div class="metric-subtext">Cyber Safety Hub</div>
+            <div class="metric-subtext">Safety Hub Modules</div>
           </div>
         </div>
 
-        <!-- Quick Launch Module Cards -->
-        <h2 class="section-heading">
-          ${isHinglish ? 'Primary Tools & Simulators' : 'Primary Tools & Simulators'}
-        </h2>
-        <div class="quick-tools-grid">
-          <div class="quick-tool-card" id="card-launch-arena">
-            <div class="tool-card-icon" style="background-color: var(--color-primary-surface); color: var(--color-primary);">
-              ${getIcon('gamepad')}
+        <!-- Streamlined Primary 3 Quick-Action Cards -->
+        <div class="quick-tools-grid simplified-tools-grid">
+          <!-- Tool 1: Link Inspector -->
+          <div class="quick-tool-card simplified-tool-card" id="card-launch-link">
+            <div class="tool-card-top-row">
+              <div class="tool-card-icon blue">
+                ${getIcon('link')}
+              </div>
+              <span class="badge badge-brand">Instant Analysis</span>
             </div>
-            <h3 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold);">Awareness Arena</h3>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: 0;">
-              Interactive training rounds testing your ability to spot deceptive messages and link tricks across 3 difficulty tiers.
+            <h3 class="tool-card-title">${isHinglish ? 'Link Inspector' : 'Link Inspector'}</h3>
+            <p class="tool-card-desc">
+              ${isHinglish 
+                ? 'Suspicious URLs, subdomains aur QR codes ko transparent rules se verify karein.' 
+                : 'Deconstruct suspicious URLs, misleading hostnames & QR codes safely.'}
             </p>
-            <span class="tool-card-action blue">
-              Launch Arena ${getIcon('arrow-right', 'icon-inline')}
-            </span>
+            <div class="tool-card-footer-action">
+              <span>${isHinglish ? 'Open Inspector' : 'Inspect Link'}</span>
+              ${getIcon('arrow-right', 'icon-inline')}
+            </div>
           </div>
 
-          <div class="quick-tool-card" id="card-launch-link">
-            <div class="tool-card-icon" style="background-color: var(--color-purple-surface); color: var(--color-purple);">
-              ${getIcon('link')}
+          <!-- Tool 2: Message Analyzer -->
+          <div class="quick-tool-card simplified-tool-card" id="card-launch-message">
+            <div class="tool-card-top-row">
+              <div class="tool-card-icon amber">
+                ${getIcon('message-square')}
+              </div>
+              <span class="badge badge-caution">AI & Patterns</span>
             </div>
-            <h3 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold);">Link Inspector</h3>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: 0;">
-              Deconstruct suspicious URLs locally without visiting the destination. Check subdomains, IP addresses, and user-info tricks.
+            <h3 class="tool-card-title">${isHinglish ? 'Message Analyzer' : 'Message Analyzer'}</h3>
+            <p class="tool-card-desc">
+              ${isHinglish 
+                ? 'SMS, emails aur WhatsApp texts me fake OTP demands aur extortion traps pakdein.' 
+                : 'Paste SMS, emails or WhatsApp messages to detect fraud, urgency & extortion.'}
             </p>
-            <span class="tool-card-action purple">
-              Inspect Link ${getIcon('arrow-right', 'icon-inline')}
-            </span>
+            <div class="tool-card-footer-action">
+              <span>${isHinglish ? 'Analyze Text' : 'Analyze Message'}</span>
+              ${getIcon('arrow-right', 'icon-inline')}
+            </div>
           </div>
 
-          <div class="quick-tool-card" id="card-launch-message">
-            <div class="tool-card-icon" style="background-color: var(--color-caution-surface); color: var(--color-caution);">
-              ${getIcon('message-square')}
+          <!-- Tool 3: Awareness Arena -->
+          <div class="quick-tool-card simplified-tool-card" id="card-launch-arena">
+            <div class="tool-card-top-row">
+              <div class="tool-card-icon green">
+                ${getIcon('gamepad')}
+              </div>
+              <span class="badge badge-success">Interactive</span>
             </div>
-            <h3 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold);">Message Red-Flag Analyzer</h3>
-            <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); margin: 0;">
-              Paste suspicious messages, SMS, or emails. Transparent local rules highlight urgency, fake OTP demands, and extortion.
+            <h3 class="tool-card-title">${isHinglish ? 'Awareness Arena' : 'Awareness Arena'}</h3>
+            <p class="tool-card-desc">
+              ${isHinglish 
+                ? 'Interactive training quiz khel kar real-world online scams ko spot karna seekhein.' 
+                : 'Sharpen your scam-detection reflexes across 3 realistic difficulty tiers.'}
             </p>
-            <span class="tool-card-action amber">
-              Analyze Message ${getIcon('arrow-right', 'icon-inline')}
-            </span>
+            <div class="tool-card-footer-action">
+              <span>${isHinglish ? 'Start Round' : 'Launch Arena'}</span>
+              ${getIcon('arrow-right', 'icon-inline')}
+            </div>
           </div>
         </div>
 
-        <!-- Two Column Section: Recent Activities & Suggested Lesson -->
-        <div class="overview-two-col">
-          <!-- Recent Activities Panel -->
+        <!-- Balanced Two Column Section: Recent Activity & Suggested Topic -->
+        <div class="overview-two-col simplified-two-col">
+          <!-- Recent Activity -->
           <div class="card">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-title">${isHinglish ? 'Recent Training Sessions' : 'Recent Training Activity'}</span>
-                <span class="card-subtitle">Real records from your local browser storage</span>
+                <span class="card-title">${isHinglish ? 'Recent Activity' : 'Recent Activity'}</span>
+                <span class="card-subtitle">${isHinglish ? 'Aapke latest training sessions' : 'Latest training records'}</span>
               </div>
               <button class="btn btn-quiet btn-sm" id="btn-view-all-progress">View All</button>
             </div>
@@ -197,7 +222,7 @@
                             ${sess.category === 'all' ? 'All Categories' : (categoryNames[sess.category] || sess.category)}
                           </div>
                           <div class="activity-meta">
-                            ${fmt.formatDate(sess.timestamp)} • ${sess.correctCount} of ${sess.totalQuestions} correct
+                            ${fmt.formatDate(sess.timestamp)} • ${sess.correctCount} / ${sess.totalQuestions} correct
                           </div>
                         </div>
                       </div>
@@ -206,46 +231,45 @@
                   `).join('')}
                 </div>
               ` : `
-                <div class="empty-state" style="padding: var(--space-lg) 0;">
-                  <div class="empty-icon-box">${getIcon('gamepad')}</div>
-                  <div class="empty-title">${isHinglish ? 'Abhi koi session record nahi hai' : 'No training sessions recorded yet'}</div>
-                  <div class="empty-desc">${isHinglish ? 'Pehla round khel kar apni security accuracy track karein.' : 'Complete your first practice round in the Awareness Arena to begin tracking your defense score.'}</div>
-                  <button class="btn btn-primary btn-sm" id="btn-empty-start-arena">Start Practice Round</button>
+                <div class="empty-state" style="padding: var(--space-md) 0;">
+                  <div class="empty-icon-box" style="width: 42px; height: 42px; margin-bottom: 8px;">${getIcon('gamepad')}</div>
+                  <div class="empty-title" style="font-size: var(--font-size-sm);">${isHinglish ? 'No sessions yet' : 'No training rounds recorded yet'}</div>
+                  <div class="empty-desc" style="font-size: var(--font-size-xs); margin-bottom: var(--space-sm);">${isHinglish ? 'Arena me pehla round khel kar accuracy check karein.' : 'Complete an interactive quiz in Awareness Arena to see your defense score.'}</div>
+                  <button class="btn btn-primary btn-sm" id="btn-empty-start-arena">${isHinglish ? 'Play Quick Round' : 'Start Practice Round'}</button>
                 </div>
               `}
             </div>
           </div>
 
-          <!-- Suggested Lesson / Education Callout -->
+          <!-- Suggested Topic -->
           <div class="card">
             <div class="card-header">
               <div class="card-title-group">
-                <span class="card-title">${isHinglish ? 'Suggested Learning' : 'Suggested Learning'}</span>
-                <span class="card-subtitle">Recommended safety module tailored to your weaknesses</span>
+                <span class="card-title">${isHinglish ? 'Recommended Next Step' : 'Recommended Next Step'}</span>
+                <span class="card-subtitle">${isHinglish ? 'Safety module recommendation' : 'Targeted security lesson'}</span>
               </div>
             </div>
             <div class="card-body" style="display: flex; flex-direction: column; justify-content: space-between;">
               <div>
-                <div class="badge badge-brand" style="margin-bottom: var(--space-sm);">Recommended Topic</div>
-                <h3 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs);">
+                <div class="badge badge-brand" style="margin-bottom: var(--space-xs);">Recommended Lesson</div>
+                <h3 style="font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); margin-bottom: 4px;">
                   ${lessonTitle}
                 </h3>
-                <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); line-height: 1.5; margin-bottom: var(--space-md);">
+                <p style="font-size: var(--font-size-xs); color: var(--color-text-secondary); line-height: 1.5; margin-bottom: var(--space-sm);">
                   ${lessonObjective}
                 </p>
-                <div class="lesson-meta-hint">
-                  ${getIcon('book-open', 'icon-inline')} ${lessonReadTime} • Includes interactive knowledge check
+                <div class="lesson-meta-hint" style="font-size: var(--font-size-xs); color: var(--color-text-muted);">
+                  ${getIcon('book-open', 'icon-inline')} ${lessonReadTime} • Includes quiz
                 </div>
               </div>
-              <button class="btn btn-secondary btn-sm btn-block" id="btn-open-suggested-lesson" style="margin-top: var(--space-lg);">
-                Read Lesson & Take Quiz
+              <button class="btn btn-secondary btn-sm btn-block" id="btn-open-suggested-lesson" style="margin-top: var(--space-md);">
+                ${isHinglish ? 'Lesson Padhein' : 'Read Lesson & Practice'}
               </button>
             </div>
           </div>
         </div>
       `;
 
-      // Wire interactive event listeners
       this.attachEvents(container, suggestedLessonId);
     },
 
@@ -261,12 +285,44 @@
 
       bindClick('btn-hero-arena', 'arena');
       bindClick('btn-hero-link', 'link-inspector');
-      bindClick('btn-hero-demo', 'demo-mode');
+      bindClick('btn-hero-chat', 'chat');
       bindClick('card-launch-arena', 'arena');
       bindClick('card-launch-link', 'link-inspector');
       bindClick('card-launch-message', 'message-analyzer');
       bindClick('btn-view-all-progress', 'progress');
       bindClick('btn-empty-start-arena', 'arena');
+
+      // Quick URL scan input event
+      const quickInput = container.querySelector('#overview-quick-url-input');
+      const quickBtn = container.querySelector('#btn-overview-quick-inspect');
+
+      const triggerQuickInspect = () => {
+        if (!quickInput) return;
+        const url = quickInput.value.trim();
+        if (url) {
+          router.navigate('link-inspector');
+          setTimeout(() => {
+            if (global.CyberShield.LinkInspectorModule && typeof global.CyberShield.LinkInspectorModule.inspectUrl === 'function') {
+              global.CyberShield.LinkInspectorModule.inspectUrl(url);
+            }
+          }, 120);
+        } else {
+          router.navigate('link-inspector');
+        }
+      };
+
+      if (quickBtn) {
+        quickBtn.addEventListener('click', triggerQuickInspect);
+      }
+
+      if (quickInput) {
+        quickInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            triggerQuickInspect();
+          }
+        });
+      }
 
       const suggestedBtn = container.querySelector('#btn-open-suggested-lesson');
       if (suggestedBtn) {
