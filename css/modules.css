@@ -4660,4 +4660,983 @@ svg.radar-chart-svg {
   border-top: 1px solid rgba(0, 240, 255, 0.25) !important;
 }
 
+/* ==========================================================================
+   Cyber Intelligence Center — Link Inspector Redesign (CyberShield X)
+   Pillars:
+   1. Cyber Intelligence Center (tactical SOC dark-navy styling & recent intel)
+   2. Digital Forensics Lab (5-stage deep investigation)
+   3. Live Investigation Animation HUD (authentic staged progress indicator)
+   4. Threat Evidence Cards (modular, expandable evidence cards)
+   5. Explainable Risk Assessment (transparent indicator matrix & scoring)
+   6. Interactive URL Anatomy Explorer (clickable tokens with contextual role)
+   7. Investigation Timeline + Exportable Report (PDF/Print/Text/SIEM JSON)
+   ========================================================================== */
+
+/* 1. Tactical Intelligence Hero Card */
+.intel-hero-card {
+  background: linear-gradient(145deg, #0f172a 0%, #090e1c 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.45), 0 0 24px rgba(99, 102, 241, 0.15);
+  position: relative;
+  overflow: hidden;
+  color: #F8FAFC;
+}
+
+.intel-hero-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6366f1, #00f0ff, #6366f1, transparent);
+  animation: radarSweep 6s linear infinite;
+}
+
+.intel-hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.intel-node-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.intel-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #38BDF8;
+  box-shadow: 0 0 8px #38BDF8;
+  animation: pulseLight 1.8s ease-in-out infinite;
+}
+
+.intel-hero-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.intel-hero-subtitle {
+  font-size: var(--font-size-sm);
+  color: #94A3B8;
+  margin: 0;
+  max-width: 650px;
+  line-height: 1.5;
+}
+
+/* Engine & Mode Navigation Bar */
+.intel-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: var(--space-md);
+}
+
+.intel-tab-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.intel-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  color: #CBD5E1;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.intel-tab-btn:hover {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: #6366f1;
+  color: #FFFFFF;
+}
+
+.intel-tab-btn.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.35) 0%, rgba(37, 99, 235, 0.35) 100%);
+  border-color: #818cf8;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.3);
+}
+
+/* Large Center Investigation Input */
+.intel-input-wrapper {
+  position: relative;
+  margin-bottom: var(--space-md);
+}
+
+.intel-input-box {
+  width: 100%;
+  background: #060a14;
+  border: 2px solid rgba(99, 102, 241, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px 16px 52px;
+  font-family: var(--font-family-mono);
+  font-size: 1rem;
+  color: #38BDF8;
+  transition: all 0.25s ease;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.intel-input-box:focus {
+  outline: none;
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2), 0 0 24px rgba(56, 189, 248, 0.3);
+  background: #040810;
+}
+
+.intel-input-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #818cf8;
+  pointer-events: none;
+}
+
+.intel-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.btn-analyze-intel {
+  background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+  color: #FFFFFF;
+  border: 1px solid #818cf8;
+  border-radius: var(--radius-md);
+  padding: 12px 28px;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(79, 70, 229, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-analyze-intel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.6);
+  border-color: #a5b4fc;
+}
+
+/* Sample URL Chips */
+.intel-samples-container {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+}
+
+.intel-samples-label {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.intel-samples-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.intel-sample-pill {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.intel-sample-pill:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: #818cf8;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Recent Investigations Side / Bottom Drawer */
+.intel-recent-drawer {
+  background: rgba(6, 12, 26, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.intel-recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.intel-recent-title {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94A3B8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.intel-recent-chips-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.intel-recent-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  color: #E2E8F0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+
+.intel-recent-chip:hover {
+  border-color: #818cf8;
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.intel-recent-verdict-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.intel-recent-verdict-dot.high-risk { background-color: #EF4444; }
+.intel-recent-verdict-dot.suspicious { background-color: #F59E0B; }
+.intel-recent-verdict-dot.uncertain { background-color: #EAB308; }
+.intel-recent-verdict-dot.low-risk { background-color: #10B981; }
+
+/* 2. Live Investigation Animation HUD (⚡ Subtle & Authentic) */
+.live-investigation-hud {
+  background: linear-gradient(145deg, #0b1120 0%, #060b17 100%);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+  text-align: center;
+}
+
+.live-radar-scanner {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-md);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+  border: 2px solid rgba(56, 189, 248, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38BDF8;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  animation: radarSpin 2.5s linear infinite;
+}
+
+.live-hud-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.live-hud-target {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: #38BDF8;
+  word-break: break-all;
+  margin-bottom: var(--space-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Staged Progress Indicator */
+.live-stages-container {
+  max-width: 540px;
+  margin: 0 auto var(--space-lg);
+  text-align: left;
+}
+
+.live-stage-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  margin-bottom: 6px;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: #64748B;
+  transition: all 0.25s ease;
+}
+
+.live-stage-item.active {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38BDF8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+}
+
+.live-stage-item.completed {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #10B981;
+}
+
+.live-stage-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.live-progress-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.live-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #38BDF8, #10B981);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* 3. The Full Investigation Dossier Layout (Suggested Final 2-Column Grid) */
+.intel-dossier-wrapper {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: var(--space-2xl);
+}
+
+/* Dossier Top Bar */
+.intel-dossier-topbar {
+  background: linear-gradient(145deg, #0f172a 0%, #0a0f1d 100%);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  border-radius: var(--radius-xl);
+  padding: var(--space-md) var(--space-xl);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.35);
+}
+
+.intel-id-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.intel-id-tag {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.intel-dossier-target {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  color: #F8FAFC;
+  word-break: break-all;
+}
+
+.intel-verdict-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.intel-verdict-banner.high-risk {
+  background: rgba(239, 68, 68, 0.18);
+  border: 1px solid #EF4444;
+  color: #EF4444;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.3);
+}
+
+.intel-verdict-banner.suspicious {
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid #F59E0B;
+  color: #F59E0B;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+}
+
+.intel-verdict-banner.uncertain {
+  background: rgba(234, 179, 8, 0.18);
+  border: 1px solid #EAB308;
+  color: #EAB308;
+}
+
+.intel-verdict-banner.low-risk {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid #10B981;
+  color: #10B981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3);
+}
+
+/* 2-Column Tactical Grid */
+.intel-layout-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 992px) {
+  .intel-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.intel-panel-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .intel-panel-card {
+  background: rgba(6, 12, 26, 0.85);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.intel-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+[data-theme="dark"] .intel-card-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.intel-card-title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .intel-card-title {
+  color: #F8FAFC;
+}
+
+/* 4. Interactive URL Anatomy Explorer (🗺️ Component Inspection) */
+.anatomy-token-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: var(--space-md);
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+}
+
+[data-theme="dark"] .anatomy-token-strip {
+  background: #040813;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.anatomy-token-btn {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  word-break: break-all;
+}
+
+.anatomy-token-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.anatomy-token-btn.active {
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 16px rgba(99, 102, 241, 0.6);
+  transform: scale(1.04);
+}
+
+/* Token Color Coding */
+.token-scheme {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: #06B6D4;
+}
+
+.token-subdomain {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #A855F7;
+}
+
+.token-domain {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.5);
+  color: #3B82F6;
+  font-weight: 700;
+}
+
+.token-domain.suspicious-domain {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #EF4444;
+  color: #EF4444;
+  animation: pulseLight 2s infinite;
+}
+
+.token-path {
+  background: rgba(100, 116, 139, 0.15);
+  border-color: rgba(100, 116, 139, 0.4);
+  color: #64748B;
+}
+
+[data-theme="dark"] .token-path {
+  color: #94A3B8;
+}
+
+.token-query {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #F59E0B;
+}
+
+/* Dynamic Anatomy Detail Box */
+.anatomy-detail-box {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-top: var(--space-xs);
+  transition: all 0.25s ease;
+}
+
+[data-theme="dark"] .anatomy-detail-box {
+  background: rgba(8, 16, 36, 0.85);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.anatomy-detail-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #818cf8;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.anatomy-detail-value {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  word-break: break-all;
+  margin-bottom: 8px;
+}
+
+[data-theme="dark"] .anatomy-detail-value {
+  color: #F8FAFC;
+}
+
+.anatomy-detail-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+[data-theme="dark"] .anatomy-detail-text {
+  color: #CBD5E1;
+}
+
+/* 5. Digital Forensics Lab (🔬 5-Stage Technical Deep Dive) */
+.forensics-stage-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: 8px;
+  background: var(--color-bg-subtle);
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .forensics-stage-item {
+  background: rgba(10, 18, 40, 0.65);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.forensics-stage-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.forensics-stage-name {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .forensics-stage-name {
+  color: #E2E8F0;
+}
+
+.forensics-stage-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+[data-theme="dark"] .forensics-stage-desc {
+  color: #94A3B8;
+}
+
+/* 6. Explainable Risk Assessment (🧠 Matrix Table & Heuristic Breakdown) */
+.explainable-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+[data-theme="dark"] .explainable-score-row {
+  background: rgba(10, 18, 40, 0.65);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.explainable-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-xs);
+  margin-bottom: var(--space-md);
+}
+
+.explainable-matrix-table th {
+  text-align: left;
+  padding: 8px 10px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.7rem;
+}
+
+[data-theme="dark"] .explainable-matrix-table th {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.explainable-matrix-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+}
+
+[data-theme="dark"] .explainable-matrix-table td {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  color: #CBD5E1;
+}
+
+.matrix-status-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.matrix-status-pill.pass {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+}
+
+.matrix-status-pill.alert {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+}
+
+.matrix-status-pill.warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #F59E0B;
+}
+
+.matrix-status-pill.neutral {
+  background: rgba(100, 116, 139, 0.15);
+  color: #64748B;
+}
+
+/* 7. Threat Evidence Cards (🎯 Modular & Expandable) */
+.threat-evidence-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.threat-evidence-item {
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .threat-evidence-item {
+  background: rgba(8, 16, 36, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.threat-evidence-item.flagged {
+  border-left: 4px solid #EF4444;
+}
+
+.threat-evidence-item.caution-flagged {
+  border-left: 4px solid #F59E0B;
+}
+
+.threat-evidence-item.clean {
+  border-left: 4px solid #10B981;
+}
+
+.threat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.threat-card-num-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.threat-card-num {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  color: #818cf8;
+}
+
+.threat-card-title {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .threat-card-title {
+  color: #F8FAFC;
+}
+
+.threat-card-snippet {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  color: #EF4444;
+  margin: 6px 0 0 28px;
+  word-break: break-all;
+}
+
+.threat-card-snippet.clean {
+  color: #10B981;
+}
+
+.threat-card-drawer {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--color-border);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .threat-card-drawer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  color: #CBD5E1;
+}
+
+.threat-drawer-section {
+  margin-bottom: 6px;
+}
+
+.threat-drawer-label {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+}
+
+[data-theme="dark"] .threat-drawer-label {
+  color: #E2E8F0;
+}
+
+/* 8. Bottom Section: Containment & Export Toolbar */
+.intel-bottom-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .intel-bottom-card {
+  background: rgba(6, 12, 26, 0.85);
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.containment-list {
+  padding-left: var(--space-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-lg) 0;
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .containment-list {
+  color: #E2E8F0;
+}
+
+.intel-export-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-lg);
+}
+
+[data-theme="dark"] .intel-export-toolbar {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Print Styles for Exporting Investigation Dossier */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .intel-dossier-wrapper,
+  .intel-dossier-wrapper * {
+    visibility: visible;
+  }
+  .intel-dossier-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .intel-export-toolbar,
+  .btn,
+  .intel-hero-card {
+    display: none !important;
+  }
+}
+
+
 
