@@ -1,7 +1,7 @@
 /**
  * CyberShield — Offline Service Worker (Cache-First)
  */
-const CACHE_NAME = 'cybershield-cache-v32';
+const CACHE_NAME = 'cybershield-cache-v33';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -34,6 +34,7 @@ const ASSETS_TO_CACHE = [
   './js/engine/result-schema.js',
   './js/engine/evidence-aggregator.js',
   './js/engine/gemini-api.js',
+  './js/engine/fast-showcase-scanner.js',
   './js/modules/overview.js',
   './js/modules/chat.js',
   './js/modules/chat-widget.js',
