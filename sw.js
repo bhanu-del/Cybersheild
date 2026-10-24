@@ -1,7 +1,7 @@
 /**
  * CyberShield — Offline Service Worker (Cache-First)
  */
-const CACHE_NAME = 'cybershield-cache-v35';
+const CACHE_NAME = 'cybershield-cache-v36';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
