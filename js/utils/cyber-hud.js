@@ -1,16 +1,19 @@
 /**
- * CyberShield — Interactive Cyber HUD & Particle Telemetry Engine
+ * CyberShield — Animated Cyber Defense Matrix & Particle Telemetry Engine
  * Activated STRICTLY in Dark Mode ([data-theme="dark"]).
  * Dormant and hidden in Light Mode ([data-theme="light"]).
  * 
  * Features:
- * 1. Interactive Cyber Mesh & Threat Nodes that dynamically react to mouse cursor.
- * 2. Rotating Radar Sonar Sweep beam inspired by Military / SOC Threat Monitors.
- * 3. Dynamic Background Spotlight & Card Neon Glare that follows the mouse pointer.
- * 4. Holographic Cursor HUD Reticle with live coordinate telemetry in background.
- * 5. Dynamic Background Grid Crosshair Illumination near cursor.
- * 6. Click/Tap Electromagnetic (EMP) Shockwave Pulse Rings that repulse nodes.
- * 7. Particle velocity spark trails following swift cursor movements.
+ * 1. Animated Gliding Cyber Grid & Matrix Highway (Smooth 60 FPS motion).
+ * 2. Streaming Cyber Data Packets (Laser energy pulses traveling along grid coordinates).
+ * 3. Rotating Cyber Defense Hexagons (Holographic SOC Shield emitters).
+ * 4. Tactical Radar Scanline Sweep (Continuous horizontal laser threat scanner).
+ * 5. Rotating Military SOC Radar Scanner with concentric distance rings.
+ * 6. Dynamic Background Spotlight & Card Neon Glare that follows the mouse pointer.
+ * 7. Holographic Cursor HUD Reticle with live coordinate telemetry in background.
+ * 8. Dynamic Background Grid Crosshair Illumination near cursor.
+ * 9. Click/Tap Electromagnetic (EMP) Shockwave Pulse Rings that repulse nodes.
+ * 10. Particle velocity spark trails following swift cursor movements.
  */
 (function(global) {
   'use strict';
@@ -52,6 +55,17 @@
   const sparks = [];
   const MAX_SPARKS = 28;
 
+  // Streaming Cyber Data Packets along Grid Lines
+  const dataPackets = [];
+  const MAX_PACKETS = 14;
+
+  // Floating Cyber Defense Hexagons (SOC Holograms)
+  const defenseHexagons = [
+    { xRatio: 0.18, yRatio: 0.35, radius: 105, angle: 0, speed: 0.0025, color: 'rgba(0, 240, 255, 0.08)' },
+    { xRatio: 0.82, yRatio: 0.65, radius: 135, angle: Math.PI / 6, speed: -0.0018, color: 'rgba(0, 255, 136, 0.07)' },
+    { xRatio: 0.50, yRatio: 0.88, radius: 85, angle: Math.PI / 3, speed: 0.0035, color: 'rgba(129, 140, 248, 0.06)' }
+  ];
+
   function getNodeCount() {
     return (window.innerWidth <= 768) ? 22 : 55;
   }
@@ -75,6 +89,21 @@
         color: colors[Math.floor(Math.random() * colors.length)],
         pulse: Math.random() * Math.PI,
         pulseSpeed: 0.03 + Math.random() * 0.03
+      });
+    }
+  }
+
+  function initPackets() {
+    dataPackets.length = 0;
+    for (let i = 0; i < MAX_PACKETS; i++) {
+      const isHorizontal = Math.random() > 0.45;
+      dataPackets.push({
+        isHorizontal: isHorizontal,
+        pos: Math.random() * (isHorizontal ? (width || 1200) : (height || 800)),
+        track: Math.floor(Math.random() * (((isHorizontal ? (height || 800) : (width || 1200)) / 48))) * 48,
+        speed: (Math.random() * 2.2 + 1.2) * (Math.random() > 0.5 ? 1 : -1),
+        length: Math.random() * 30 + 20,
+        color: Math.random() > 0.4 ? '#00F0FF' : '#00FF88'
       });
     }
   }
@@ -198,15 +227,162 @@
     triggerShockwave(e.clientX, e.clientY);
   }
 
+  function drawHexagon(ctx, x, y, r, angle) {
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const a = angle + i * (Math.PI / 3);
+      const hx = x + Math.cos(a) * r;
+      const hy = y + Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(hx, hy);
+      else ctx.lineTo(hx, hy);
+    }
+    ctx.closePath();
+  }
+
   function renderFrame() {
     if (!isRunning || !ctx) return;
 
     ctx.clearRect(0, 0, width, height);
 
+    const isMobile = width <= 768;
+    const now = Date.now();
+
+    // ----------------------------------------------------
+    // 0A. Animated Flowing Cyber Grid Lines
+    // ----------------------------------------------------
+    const gridSize = 48;
+    const scrollOffsetY = (now * 0.016) % gridSize;
+
+    ctx.save();
+    ctx.lineWidth = 0.5;
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.038)';
+
+    // Vertical stationary grid lines
+    ctx.beginPath();
+    for (let x = 0; x <= width; x += gridSize) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+    }
+    ctx.stroke();
+
+    // Horizontal smoothly flowing grid lines (ambient cyber motion)
+    ctx.beginPath();
+    for (let y = scrollOffsetY; y <= height; y += gridSize) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // ----------------------------------------------------
+    // 0B. Streaming Cyber Data Packets (Energy streams)
+    // ----------------------------------------------------
+    ctx.save();
+    for (let i = 0; i < dataPackets.length; i++) {
+      const p = dataPackets[i];
+      p.pos += p.speed;
+
+      if (p.isHorizontal) {
+        if (p.pos > width + 40) p.pos = -40;
+        if (p.pos < -40) p.pos = width + 40;
+
+        const grad = ctx.createLinearGradient(p.pos - p.length, p.track, p.pos, p.track);
+        grad.addColorStop(0, 'rgba(0, 240, 255, 0)');
+        grad.addColorStop(1, p.color);
+
+        ctx.beginPath();
+        ctx.moveTo(p.pos - p.length, p.track);
+        ctx.lineTo(p.pos, p.track);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        // Glowing packet head
+        ctx.beginPath();
+        ctx.arc(p.pos, p.track, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+      } else {
+        if (p.pos > height + 40) p.pos = -40;
+        if (p.pos < -40) p.pos = height + 40;
+
+        const grad = ctx.createLinearGradient(p.track, p.pos - p.length, p.track, p.pos);
+        grad.addColorStop(0, 'rgba(0, 240, 255, 0)');
+        grad.addColorStop(1, p.color);
+
+        ctx.beginPath();
+        ctx.moveTo(p.track, p.pos - p.length);
+        ctx.lineTo(p.track, p.pos);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        // Glowing packet head
+        ctx.beginPath();
+        ctx.arc(p.track, p.pos, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    // ----------------------------------------------------
+    // 0C. Floating Cyber Defense Hexagons (SOC Holograms)
+    // ----------------------------------------------------
+    if (!isMobile) {
+      ctx.save();
+      for (let i = 0; i < defenseHexagons.length; i++) {
+        const hex = defenseHexagons[i];
+        hex.angle += hex.speed;
+        const hx = width * hex.xRatio;
+        const hy = height * hex.yRatio;
+
+        // Outer rotating hexagon
+        ctx.strokeStyle = hex.color;
+        ctx.lineWidth = 1.2;
+        drawHexagon(ctx, hx, hy, hex.radius, hex.angle);
+        ctx.stroke();
+
+        // Inner dashed hexagon
+        ctx.setLineDash([6, 8]);
+        drawHexagon(ctx, hx, hy, hex.radius * 0.75, -hex.angle * 1.4);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Central crosshair & concentric circle
+        ctx.beginPath();
+        ctx.arc(hx, hy, hex.radius * 0.35, 0, Math.PI * 2);
+        ctx.strokeStyle = hex.color;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(hx - 8, hy);
+        ctx.lineTo(hx + 8, hy);
+        ctx.moveTo(hx, hy - 8);
+        ctx.lineTo(hx, hy + 8);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // ----------------------------------------------------
+    // 0D. Tactical Scanline Threat Sweep Bar
+    // ----------------------------------------------------
+    const scanPeriod = height + 160;
+    const scanY = ((now * 0.055) % scanPeriod) - 80;
+
+    const scanGrad = ctx.createLinearGradient(0, scanY - 24, 0, scanY + 24);
+    scanGrad.addColorStop(0, 'rgba(0, 240, 255, 0)');
+    scanGrad.addColorStop(0.5, 'rgba(0, 240, 255, 0.05)');
+    scanGrad.addColorStop(0.52, 'rgba(0, 255, 136, 0.12)');
+    scanGrad.addColorStop(1, 'rgba(0, 240, 255, 0)');
+
+    ctx.fillStyle = scanGrad;
+    ctx.fillRect(0, scanY - 24, width, 48);
+
     // ----------------------------------------------------
     // 1. Draw Rotating Holographic Radar in background
     // ----------------------------------------------------
-    const isMobile = width <= 768;
     const radarCenterX = isMobile ? width / 2 : width - 180;
     const radarCenterY = isMobile ? 120 : 180;
     const radarRadius = isMobile ? 75 : 140;
@@ -261,14 +437,14 @@
     // 2. Interactive Background Grid Proximity Crosshairs
     // ----------------------------------------------------
     if (mouse.isActive && !isMobile) {
-      const gridSize = 72; // Snap to cyber grid multiples
-      const startX = Math.floor((mouse.x - 220) / gridSize) * gridSize;
-      const endX = Math.ceil((mouse.x + 220) / gridSize) * gridSize;
-      const startY = Math.floor((mouse.y - 220) / gridSize) * gridSize;
-      const endY = Math.ceil((mouse.y + 220) / gridSize) * gridSize;
+      const gStep = 48; // Snap to cyber grid multiples
+      const startX = Math.floor((mouse.x - 220) / gStep) * gStep;
+      const endX = Math.ceil((mouse.x + 220) / gStep) * gStep;
+      const startY = Math.floor((mouse.y - 220) / gStep) * gStep;
+      const endY = Math.ceil((mouse.y + 220) / gStep) * gStep;
 
-      for (let gx = startX; gx <= endX; gx += gridSize) {
-        for (let gy = startY; gy <= endY; gy += gridSize) {
+      for (let gx = startX; gx <= endX; gx += gStep) {
+        for (let gy = startY; gy <= endY; gy += gStep) {
           const dx = gx - mouse.x;
           const dy = gy - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -376,7 +552,7 @@
           ctx.stroke();
 
           // Animated energy pulse on laser line
-          const progress = (Date.now() % 1000) / 1000;
+          const progress = (now % 1000) / 1000;
           const pulseX = node.x + (mouse.x - node.x) * progress;
           const pulseY = node.y + (mouse.y - node.y) * progress;
           ctx.beginPath();
@@ -557,6 +733,7 @@
     isRunning = true;
     resize();
     initNodes();
+    initPackets();
 
     window.addEventListener('resize', resize, { passive: true });
     window.addEventListener('mousemove', handleMouseMove, { passive: true });

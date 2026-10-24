@@ -4362,15 +4362,25 @@ svg.radar-chart-svg {
 [data-theme="dark"] .app-container {
   background-color: #030712 !important;
   background-image: 
-    radial-gradient(650px circle at var(--bg-mouse-x, -999px) var(--bg-mouse-y, -999px), rgba(0, 240, 255, 0.16) 0%, rgba(0, 102, 255, 0.06) 45%, transparent 75%),
-    radial-gradient(circle 850px at 5% -5%, rgba(0, 102, 255, 0.32), transparent 70%),
-    radial-gradient(circle 750px at 95% 5%, rgba(0, 240, 255, 0.25), transparent 60%),
-    radial-gradient(circle 700px at 50% 105%, rgba(0, 255, 136, 0.14), transparent 70%),
+    radial-gradient(700px circle at var(--bg-mouse-x, -999px) var(--bg-mouse-y, -999px), rgba(0, 240, 255, 0.18) 0%, rgba(0, 102, 255, 0.06) 45%, transparent 75%),
+    radial-gradient(circle 850px at 5% -5%, rgba(0, 102, 255, 0.35), transparent 70%),
+    radial-gradient(circle 750px at 95% 5%, rgba(0, 240, 255, 0.28), transparent 60%),
+    radial-gradient(circle 700px at 50% 105%, rgba(0, 255, 136, 0.16), transparent 70%),
     linear-gradient(rgba(0, 240, 255, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 240, 255, 0.055) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 48px 48px, 48px 48px;
   background-position: 0 0, 0 0, 0 0, 0 0, -1px -1px, -1px -1px;
   background-attachment: fixed;
+  animation: cyberAmbientNebulaPulse 14s infinite ease-in-out;
+}
+
+@keyframes cyberAmbientNebulaPulse {
+  0%, 100% {
+    filter: brightness(1) contrast(1);
+  }
+  50% {
+    filter: brightness(1.12) contrast(1.05);
+  }
 }
 
 /* 2. Cyber Command Shell: Frosted Glass Sidebar & Topbar */
